@@ -35,6 +35,7 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+TERM=xterm-color
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
@@ -43,7 +44,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-force_color_prompt=yes
+#force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -57,7 +58,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\u@\h\[\033[01;34m\]:\[\033[0;34m\]\W\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[38;5;26m\]\u@\h:\W\$ \[\033[m\]'
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
 fi
@@ -116,15 +117,17 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Custom Definitions
-source ~/.bin/tmuxinator.bash
-export EDITOR=nvim
-export PATH=$PATH:~/bin
-## Ada and Ada-Spark
-export PATH=/home/omazhary/Programs/Ada/gnat/bin:$PATH
-export PATH=/home/omazhary/Programs/Ada/spark/bin:$PATH
-# Turn on 256 color support...
-if [ "x$TERM" = "xxterm" ]
-then
-    export TERM="xterm-256color"
+# Terminix VTE Fix
+if [[ $TERMINIX_ID ]]; then
+        source /etc/profile.d/vte.sh
 fi
+# End Terminix VTE Fix
+
+export PATH=$PATH:/home/omazhary/bin
+export SCALA_HOME=/home/omazhary/Programs/scala
+export PATH=$PATH:$SCALA_HOME/bin
+export PATH=$PATH:/home/omazhary/Programs/spark/bin
+export PATH=/home/omazhary/Programs/gnat/bin:$PATH
+export PATH=/home/omazhary/Programs/ada-spark/bin:$PATH
+export EDITOR='nvim'
+source ~/.bin/tmuxinator.bash
