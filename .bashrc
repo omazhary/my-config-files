@@ -41,6 +41,8 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
+triangle=$'\uE0B0'
+
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
@@ -58,9 +60,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[38;5;26m\]\u@\h:\W\$ \[\033[m\]'
+    PS1="${debian_chroot:+($debian_chroot)}\[\e[48;5;26m\]\e[38;5;15m\] \u@\h: [\W] \e[48;5;15m\]\e[38;5;26m\]$triangle\[\e[m\] "
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\[\W\]> '
 fi
 unset color_prompt force_color_prompt
 
@@ -129,5 +131,5 @@ export PATH=$PATH:$SCALA_HOME/bin
 export PATH=$PATH:/home/omazhary/Programs/spark/bin
 export PATH=/home/omazhary/Programs/gnat/bin:$PATH
 export PATH=/home/omazhary/Programs/ada-spark/bin:$PATH
-export EDITOR='nvim'
+export EDITOR='vim'
 source ~/.bin/tmuxinator.bash
