@@ -42,6 +42,8 @@ case "$TERM" in
 esac
 
 triangle=$'\uE0B0'
+. ~/.git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
@@ -60,7 +62,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;26m\]\u@\h:[\W]\n>\[\e[m\] '
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;214m\]\u@\h:[\W]$(__git_ps1 "(%s)")\n>\[\e[m\] '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\[\W]> '
 fi
