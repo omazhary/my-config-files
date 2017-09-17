@@ -138,3 +138,4 @@ export EDITOR='emacsclient -t -a=\"\"'
 export JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-amd64'
 export CATALINA_HOME='/home/omazhary/Programs/apache-tomcat-6.0.18'
 source ~/.bin/tmuxinator.bash
+eval "$(dircolors ~/.dircolors)";
