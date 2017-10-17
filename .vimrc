@@ -9,7 +9,6 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " Omnicomplete revisited for vim
@@ -17,22 +16,24 @@ Plugin 'Shougo/neocomplete.vim'
 let g:neocomplete#enable_at_startup = 1
 " Plugin for bracket autocomplete
 Plugin 'Raimondi/delimitMate'
-" plugin on GitHub repo
+" Plugin on GitHub repo
 Plugin 'airblade/vim-gitgutter'
-" plugin for python autocomplete
+" Plugin for python autocomplete
 Plugin 'davidhalter/jedi-vim'
-" plugin for java autocomplete
+" Plugin for java autocomplete
 Plugin 'artur-shaik/vim-javacomplete2'
-" plugin for ruby and rails autocomplete
+" Plugin for ruby and rails autocomplete
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-" plugin for markdown
+autocmd FileType ruby compiler ruby
+" Plugin for markdown
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-" plugin for latex
+" Plugin for latex
 Plugin 'jcf/vim-latex'
 
 " All of your Plugins must be added before the following line
