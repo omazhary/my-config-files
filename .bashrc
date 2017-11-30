@@ -127,6 +127,10 @@ if [[ $TERMINIX_ID ]]; then
 fi
 # End Terminix VTE Fix
 
+# Custom aliases
+alias ll='ls -alh'
+
+# Custom exports
 export PATH=$PATH:/home/omazhary/bin
 export SCALA_HOME=/home/omazhary/Programs/scala
 export PATH=$PATH:$SCALA_HOME/bin
