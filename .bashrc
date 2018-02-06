@@ -131,14 +131,15 @@ fi
 alias ll='ls -alh'
 
 # Custom exports
-export PATH=$PATH:/home/omazhary/bin
-export SCALA_HOME=/home/omazhary/Programs/scala
+export GOPATH=$HOME/dev
+export GOBIN=$HOME/bin
+export PATH=$PATH:$HOME/bin
+export SCALA_HOME=$HOME/Programs/scala
 export PATH=$PATH:$SCALA_HOME/bin
-export PATH=$PATH:/home/omazhary/Programs/spark/bin
-export PATH=/home/omazhary/Programs/gnat/bin:$PATH
-export PATH=/home/omazhary/Programs/ada-spark/bin:$PATH
+export PATH=$PATH:$HOME/Programs/spark/bin
+export PATH=$HOME/Programs/gnat/bin:$PATH
+export PATH=$HOME/Programs/ada-spark/bin:$PATH
 export EDITOR='vim'
 export JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-amd64'
-export CATALINA_HOME='/home/omazhary/Programs/apache-tomcat-6.0.18'
 source ~/.bin/tmuxinator.bash
 eval "$(dircolors ~/.dircolors)";

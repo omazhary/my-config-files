@@ -20,8 +20,6 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'airblade/vim-gitgutter'
 " Plugin for python autocomplete
 Plugin 'davidhalter/jedi-vim'
-" Plugin for java autocomplete
-Plugin 'artur-shaik/vim-javacomplete2'
 " Plugin for ruby and rails autocomplete
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
@@ -35,6 +33,8 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 " Plugin for latex
 Plugin 'jcf/vim-latex'
+" Plugin for golang
+Plugin 'fatih/vim-go'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
