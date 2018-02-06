@@ -131,7 +131,7 @@ fi
 alias ll='ls -alh'
 
 # Custom exports
-export GOPATH=$HOME/dev
+export GOPATH=$HOME/dev/go
 export GOBIN=$HOME/bin
 export PATH=$PATH:$HOME/bin
 export SCALA_HOME=$HOME/Programs/scala
