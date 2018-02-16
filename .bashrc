@@ -141,5 +141,5 @@ export PATH=$HOME/Programs/gnat/bin:$PATH
 export PATH=$HOME/Programs/ada-spark/bin:$PATH
 export EDITOR='vim'
 export JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-amd64'
-source ~/.bin/tmuxinator.bash
+source ~/.tmuxinator.bash
 eval "$(dircolors ~/.dircolors)";
