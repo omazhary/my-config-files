@@ -79,4 +79,7 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
+" Fix tabbing for yaml files
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+" Disable foldability
 set nofoldenable
