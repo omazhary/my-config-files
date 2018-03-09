@@ -8,3 +8,5 @@ cp .tmuxinator.bash ~/.
 cp .vimrc ~/.
 cp az-conformant.zsh-theme .oh-my-zsh/themes/.
 cp .zshrc ~/.
+
+sh nerd-fonts/install.sh
