@@ -52,6 +52,11 @@ CURRENT_BG='NONE'
   FOLDER_SYMBOL=$'\uf413'
   LOCAL_SYMBOL=$'\uf108'
   REMOTE_SYBMOL=$'\uf0c1'
+  GIT_FOLDER_SYMBOL=$'\uf113'
+  OKAY_SYMBOL=$'\uf00c'
+  ERROR_SYMBOL=$'\uf00d'
+  SUPERUSER_SYMBOL=$'\uf0e7'
+  BACKGROUND_SYMBOL=$'\uf423'
 }
 
 # Begin a segment
@@ -198,6 +203,8 @@ prompt_hg() {
 prompt_dir() {
   if [ "${PWD}" = "${HOME}" ]; then
     prompt_segment 026 015 $HOME_SYBMOL
+  elif [ -d .git ]; then
+    prompt_segment 026 015 "${GIT_FOLDER_SYMBOL} %1d"
   else
     prompt_segment 026 015 "${FOLDER_SYMBOL} %1d"
   fi
@@ -217,19 +224,26 @@ prompt_virtualenv() {
 # - are there background jobs?
 prompt_status() {
   local symbols
+  local background_hl
   symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
-
-  [[ -n "$symbols" ]] && prompt_segment 026 015 "$symbols"
+  background_hl=()
+  [[ $UID -eq 0 ]] && symbols+="${SUPERUSER_SYMBOL} "
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="${BACKGROUND_SYMBOL} "
+  if [[ $RETVAL -ne 0 ]]; then
+    symbols+="${ERROR_SYMBOL}"
+    background_hl=196
+  else
+    symbols+="${OKAY_SYMBOL}"
+    background_hl=028
+  fi
+  prompt_segment $background_hl 015 "$symbols"
 }
 
 ## Main prompt
 build_prompt() {
   RETVAL=$?
-  # prompt_status
   prompt_context
+  prompt_status
   prompt_virtualenv
   prompt_dir
   prompt_git
