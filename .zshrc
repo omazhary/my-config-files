@@ -94,4 +94,10 @@ export PATH=$PATH:$HOME/bin
 export EDITOR='vim'
 export JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-amd64'
 export DEFAULT_USER='omazhary'
+
+# Custom scripts
 eval "$(dircolors ~/.dircolors)";
+
+# Custom options
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black,bold'
