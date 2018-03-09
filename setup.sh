@@ -9,4 +9,7 @@ cp .vimrc ~/.
 cp az-conformant.zsh-theme .oh-my-zsh/themes/.
 cp .zshrc ~/.
 
+git submodule init
+git submodule update
+
 sh nerd-fonts/install.sh
