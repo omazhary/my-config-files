@@ -46,7 +46,12 @@ CURRENT_BG='NONE'
   # Do not change this! Do not make it '\u2b80'; that is the old, wrong code point.
   SEGMENT_SEPARATOR=$'\ue0b8'
   PROMPT_SEPARATOR=$'\ue0b0'
+  PROMPT_INDICATOR=$'\ue0b1'
   FINAL_SEPARATOR=$'\ue0b4'
+  HOME_SYBMOL=$'\uf015'
+  FOLDER_SYMBOL=$'\uf413'
+  LOCAL_SYMBOL=$'\uf108'
+  REMOTE_SYBMOL=$'\uf0c1'
 }
 
 # Begin a segment
@@ -82,7 +87,9 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment 017 015 "%(!.%{%F{yellow}%}.)$USER@%m"
+    prompt_segment 017 015 "$REMOTE_SYBMOL $USER@%m"
+  else
+    prompt_segment 017 015 "$LOCAL_SYMBOL"
   fi
 }
 
@@ -92,7 +99,7 @@ prompt_git() {
   local PL_BRANCH_CHAR
   () {
     local LC_ALL="" LC_CTYPE="en_US.UTF-8"
-    PL_BRANCH_CHAR=$'\ue0a0'         # 
+    PL_BRANCH_CHAR=$'\uf418'
   }
   local ref dirty mode repo_path
   repo_path=$(git rev-parse --git-dir 2>/dev/null)
@@ -187,9 +194,13 @@ prompt_hg() {
   fi
 }
 
-# Dir: current working directory
+# dir: current working directory
 prompt_dir() {
-  prompt_segment 026 015 '%~'
+  if [ "${PWD}" = "${HOME}" ]; then
+    prompt_segment 026 015 $HOME_SYBMOL
+  else
+    prompt_segment 026 015 "${FOLDER_SYMBOL} %1d"
+  fi
 }
 
 # Virtualenv: current working virtualenv
@@ -211,15 +222,15 @@ prompt_status() {
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
-  [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
+  [[ -n "$symbols" ]] && prompt_segment 026 015 "$symbols"
 }
 
 ## Main prompt
 build_prompt() {
   RETVAL=$?
-  prompt_status
-  prompt_virtualenv
+  # prompt_status
   prompt_context
+  prompt_virtualenv
   prompt_dir
   prompt_git
   prompt_bzr
@@ -228,4 +239,4 @@ build_prompt() {
 }
 
 PROMPT='%{%f%b%k%}$(build_prompt)
-%F{015}%K{026}>> %F{026}%K{015}${PROMPT_SEPARATOR} ${reset_color}'
+%F{015}%K{026}${PROMPT_INDICATOR}%F{026}%K{015}${PROMPT_SEPARATOR} ${reset_color}'
