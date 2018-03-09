@@ -83,3 +83,14 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Custom aliases
+alias mux="tmuxinator"
+
+# Custom exports
+export GOPATH=$HOME/dev/go
+export GOBIN=$HOME/bin
+export PATH=$PATH:$HOME/bin
+export EDITOR='vim'
+export JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-amd64'
+eval "$(dircolors ~/.dircolors)";
