@@ -19,3 +19,5 @@ git submodule init
 git submodule update
 
 ./nerd-fonts/install.sh
+
+git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
