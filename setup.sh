@@ -6,3 +6,4 @@ cp .git-prompt.sh ~/.
 cp .tmux.conf ~/.
 cp .tmuxinator.bash ~/.
 cp .vimrc ~/.
+cp .inputrc ~/.
