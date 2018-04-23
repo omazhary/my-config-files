@@ -9,5 +9,8 @@ cp .tmuxinator.bash ~/.
 cp .vimrc ~/.
 cp .inputrc ~/.
 
+# Create fonts directory
+mkdir ~/.fonts
+
 # LaTeX document templates
 cp -r texmf ~/.
