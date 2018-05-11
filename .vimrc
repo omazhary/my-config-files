@@ -95,3 +95,8 @@ augroup ProjectDrawer
     autocmd!
     autocmd VimEnter * :Vexplore
 augroup END
+au VimEnter * wincmd l
+" Status line colors
+hi StatusLine ctermbg=15 ctermfg=17
+hi StatusLineNC ctermbg=17 ctermfg=15
+hi VertSplit ctermbg=17 ctermfg=17
