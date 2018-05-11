@@ -55,7 +55,7 @@ cp .inputrc ~/.
 
 # Create fonts directory
 echo 'Copying over custom fonts...'
-mkdir -p ~/.fonts
+cp -r .fonts ~/.
 
 # LaTeX document templates
 echo 'Copying over custom latex templates...'
