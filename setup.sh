@@ -18,13 +18,15 @@ array_contains() {
 
 # Identify package manager
 declare -a yum=("CentOS" "Fedora")
-declare -a apt=("Debian" "Ubuntu", "Lubuntu", "Kubuntu", "Xubuntu")
+declare -a apt=("Debian" "Ubuntu" "Lubuntu" "Kubuntu" "Xubuntu")
 echo 'Identifying native package manager...'
 DISTRO=$(cat /etc/os-release | grep '^NAME=' | sed -En 's/NAME=//p')
+DISTRO="${DISTRO%\"}"
+DISTRO="${DISTRO#\"}"
 PACMAN=''
-if array_contains yum $DISTRO ; then
+if array_contains yum "${DISTRO}" ; then
     PACMAN="yum"
-elif array_contains apt $DISTRO ; then
+elif array_contains apt "${DISTRO}" ; then
     PACMAN="apt"
 else
     echo "Unidentified distro, aborting..."
