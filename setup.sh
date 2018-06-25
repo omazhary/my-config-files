@@ -35,8 +35,8 @@ fi
 echo "You're running ${DISTRO}."
 echo "The corresponding package manager is ${PACMAN}."
 
-# Install packages
-echo 'Installing additional packages...'
+# Install system packages
+echo 'Installing additional system packages...'
 packages=$(cat setuplist.csv)
 for package in $packages
 do
@@ -45,14 +45,24 @@ do
     echo "### $package installation done."
 done
 
+# Install python packages
+echo 'Installing python packages via pip3...'
+pypackages=$(cat pythonlist.csv)
+for pypackage in $pypackages
+do
+    echo "### Installing $pypackage..."
+    eval "sudo pip3 install $pypackage > /dev/null"
+    echo "### $pypackage installation done."
+done
+
 # Install atom
 echo '### Installing atom...'
 if array_contains yum "${DISTRO}" ; then
-    sudo rpm --import https://packagecloud.io/AtomEditor/atom/gpgkey
-    sudo sh -c 'echo -e "[Atom]\nname=Atom Editor\nbaseurl=https://packagecloud.io/AtomEditor/atom/el/7/\$basearch\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/AtomEditor/atom/gpgkey" > /etc/yum.repos.d/atom.repo'
     if eval "sudo $PACMAN list installed atom > /dev/null" ; then
         echo '### Atom is already installed, skipping...'
     else
+        sudo rpm --import https://packagecloud.io/AtomEditor/atom/gpgkey
+        sudo sh -c 'echo -e "[Atom]\nname=Atom Editor\nbaseurl=https://packagecloud.io/AtomEditor/atom/el/7/\$basearch\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/AtomEditor/atom/gpgkey" > /etc/yum.repos.d/atom.repo'
         eval "sudo $PACMAN install -yq atom"
     fi
 elif array_contains apt "${DISTRO}" ; then
@@ -61,6 +71,15 @@ else
     echo "Unidentified distro, aborting..."
     exit 1
 fi
+# Install atom packages
+echo '#### Installing additional atom packages...'
+atom_packages=$(cat atomlist.csv)
+for atom_package in $atom_packages
+do
+    echo "#### Installing $atom_package..."
+    eval "apm install -cs $atom_package > /dev/null"
+    echo "#### $atom_package installation done."
+done
 echo "### Atom installation done."
 
 # Copy config files
