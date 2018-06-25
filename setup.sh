@@ -51,15 +51,15 @@ pypackages=$(cat pythonlist.csv)
 for pypackage in $pypackages
 do
     echo "### Installing $pypackage..."
-    eval "sudo pip3 install $pypackage > /dev/null"
+    eval "pip3 install --user $pypackage > /dev/null"
     echo "### $pypackage installation done."
 done
 
 # Install atom
-echo '### Installing atom...'
+echo 'Installing atom...'
 if array_contains yum "${DISTRO}" ; then
     if eval "sudo $PACMAN list installed atom > /dev/null" ; then
-        echo '### Atom is already installed, skipping...'
+        echo 'Atom is already installed, skipping...'
     else
         sudo rpm --import https://packagecloud.io/AtomEditor/atom/gpgkey
         sudo sh -c 'echo -e "[Atom]\nname=Atom Editor\nbaseurl=https://packagecloud.io/AtomEditor/atom/el/7/\$basearch\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/AtomEditor/atom/gpgkey" > /etc/yum.repos.d/atom.repo'
@@ -80,7 +80,7 @@ do
     eval "apm install -cs $atom_package > /dev/null"
     echo "#### $atom_package installation done."
 done
-echo "### Atom installation done."
+echo "Atom installation done."
 
 # Copy config files
 echo 'Copying over basic config files...'
