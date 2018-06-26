@@ -5,3 +5,7 @@ texlive-scheme-full.noarch
 gimp
 audacity
 git
+gcc
+ruby-devel
+zlib-devel
+redhat-rpm-config
