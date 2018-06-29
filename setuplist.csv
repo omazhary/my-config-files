@@ -10,3 +10,5 @@ ruby-devel
 zlib-devel
 redhat-rpm-config
 nodejs
+gvfs-mtp
+simple-mtpfs
