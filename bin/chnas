@@ -1,0 +1,23 @@
+#!/usr/bin/bash -e
+
+ACTION=$1
+
+if [ "$ACTION" = "mount" ]; then
+    sudo mount -t cifs -o vers=1.0,credentials=/root/nas-cred //chiselnas1.cs.uvic.ca/group_storage/ /mnt/chisel-nas
+    echo "NAS mounted successfully."
+elif [ "$ACTION" = "unmount" ]; then
+    sudo umount /mnt/chisel-nas
+    echo "NAS unmounted successfully."
+elif [ "$ACTION" = "setup" ]; then
+    echo "Creating mount directory..."
+    sudo mkdir -p /mnt/chisel-nas
+    echo "Creating user-specific symlink..."
+    ln -s /mnt/chisel-nas ~/chisel-nas
+    echo "Creating blank credentials file in /root..."
+    sudo touch /root/nas-cred
+    echo "Please add the CHISEL credentials in the credentials file."
+else
+    echo "Error: Unidentified parameter!"
+    echo "Command usage: chnas [mount|unmount|setup]"
+    exit 1
+fi
