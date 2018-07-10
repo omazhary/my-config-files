@@ -15,6 +15,8 @@ elif [ "$ACTION" = "setup" ]; then
     ln -s /mnt/chisel-nas ~/chisel-nas
     echo "Creating blank credentials file in /root..."
     sudo touch /root/nas-cred
+    sudo echo "username=" >> /root/nas-cred
+    sudo echo "passowrd=" >> /root/nas-cred
     echo "Please add the CHISEL credentials in the credentials file."
 else
     echo "Error: Unidentified parameter!"
