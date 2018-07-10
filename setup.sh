@@ -70,7 +70,7 @@ fi
 
 # Install atom
 echo 'Installing atom...'
-if array_contains yum "${DISTRO}" ; then
+if array_contains dnf "${DISTRO}" || array_contains yum "${DISTRO}" ; then
     if eval "sudo $PACMAN list installed atom > /dev/null" ; then
         echo 'Atom is already installed, skipping...'
     else
