@@ -104,6 +104,11 @@ cp .tmux.conf ~/.
 cp .tmuxinator.bash ~/.
 cp .vimrc ~/.
 cp .inputrc ~/.
+if [[ -d  "~/bin" ]]; then
+    echo '### User bin directory does not exist. Creating...'
+    mkdir -p ~/deb
+fi
+cp bin/* ~/bin/.
 
 # Create fonts directory
 echo 'Copying over custom fonts...'
