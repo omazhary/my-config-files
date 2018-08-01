@@ -19,3 +19,5 @@ pandoc
 picard
 gpick
 R
+gstreamer
+gstreamer-plugins-base
