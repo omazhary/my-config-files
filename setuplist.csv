@@ -21,3 +21,5 @@ gpick
 R
 gstreamer
 gstreamer-plugins-base
+gstreamer1-plugin-openh264
+mozilla-openh264

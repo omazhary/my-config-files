@@ -38,6 +38,19 @@ fi
 echo "You're running ${DISTRO}."
 echo "The corresponding package manager is ${PACMAN}."
 
+# Enable H264 video formats
+echo 'Enabling H.264 video codec'
+if array_contains yum "${DISTRO}" ; then
+    echo "### Not configured."
+elif array_contains dnf "${DISTRO}" ; then
+    sudo dnf config-manager --set-enabled fedora-cisco-openh264
+elif array_contains apt "${DISTRO}" ; then
+    echo "### Not configured."
+else
+    echo "Unidentified distro, aborting..."
+    exit 1
+fi
+
 # Install system packages
 echo 'Installing additional system packages...'
 packages=$(cat setuplist.csv)
