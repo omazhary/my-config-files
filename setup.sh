@@ -42,8 +42,10 @@ echo "The corresponding package manager is ${PACMAN}."
 echo 'Enabling H.264 video codec'
 if array_contains yum "${DISTRO}" ; then
     echo "### Not configured."
+    sudo yum install epel-release
 elif array_contains dnf "${DISTRO}" ; then
-    sudo dnf config-manager --set-enabled fedora-cisco-openh264
+    sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    sudo dnf install ffmpeg ffmpeg-devel
 elif array_contains apt "${DISTRO}" ; then
     echo "### Not configured."
 else
