@@ -1,2 +1,3 @@
 autocomplete-python
-python-autopep8
+linter
+linter-python-pep8
