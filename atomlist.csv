@@ -1,3 +1,4 @@
 autocomplete-python
 linter
-linter-python-pep8
+linter-ui-default
+linter-pycodestyle
