@@ -1,4 +1,6 @@
+split-diff
 autocomplete-python
 linter
 linter-ui-default
 linter-pycodestyle
+linter-rubocop

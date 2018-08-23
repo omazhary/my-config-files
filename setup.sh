@@ -83,6 +83,16 @@ else
     curl -sSL https://get.rvm.io | bash -s stable --ruby &> /dev/null
 fi
 
+# Install ruby gems
+echo 'Installing ruby gems...'
+gems=$(cat gemlist.csv)
+for gem in $gems
+do
+    echo "### Installing $gem..."
+    eval "gem install $gem > /dev/null"
+    echo "### $gem installation done."
+done
+
 # Install atom
 echo 'Installing atom...'
 if array_contains dnf "${DISTRO}" || array_contains yum "${DISTRO}" ; then
