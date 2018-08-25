@@ -45,6 +45,7 @@ if array_contains yum "${DISTRO}" ; then
     sudo yum install epel-release
 elif array_contains dnf "${DISTRO}" ; then
     sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    sudo dnf config-manager --set-enabled fedora-cisco-openh264
     sudo dnf install ffmpeg ffmpeg-devel
 elif array_contains apt "${DISTRO}" ; then
     echo "### Not configured."
@@ -110,13 +111,13 @@ else
     exit 1
 fi
 # Install atom packages
-echo '#### Installing additional atom packages...'
+echo '### Installing additional atom packages...'
 atom_packages=$(cat atomlist.csv)
 for atom_package in $atom_packages
 do
-    echo "#### Installing $atom_package..."
+    echo "### Installing $atom_package..."
     eval "apm install -cs $atom_package > /dev/null"
-    echo "#### $atom_package installation done."
+    echo "### $atom_package installation done."
 done
 echo "Atom installation done."
 
