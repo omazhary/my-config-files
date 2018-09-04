@@ -16,10 +16,11 @@ simple-scan
 proselint
 texmaker
 pandoc
-picard
 gpick
 R
 gstreamer
 gstreamer-plugins-base
 gstreamer1-plugin-openh264
 mozilla-openh264
+clementine
+sqliteman
