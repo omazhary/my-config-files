@@ -135,6 +135,7 @@ export GOPATH=$HOME/dev/go
 export GOBIN=$HOME/bin
 export PATH=$PATH:$HOME/bin
 export SCALA_HOME=$HOME/Programs/scala
+export SMLROOT=$HOME/Programs/sml
 export PATH=$PATH:$SCALA_HOME/bin
 export PATH=$PATH:$HOME/Programs/spark/bin
 export PATH=$HOME/Programs/gnat/bin:$PATH
