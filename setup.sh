@@ -94,33 +94,6 @@ do
     echo "### $gem installation done."
 done
 
-# Install atom
-echo 'Installing atom...'
-if array_contains dnf "${DISTRO}" || array_contains yum "${DISTRO}" ; then
-    if eval "sudo $PACMAN list installed atom > /dev/null" ; then
-        echo 'Atom is already installed, skipping...'
-    else
-        sudo rpm --import https://packagecloud.io/AtomEditor/atom/gpgkey
-        sudo sh -c 'echo -e "[Atom]\nname=Atom Editor\nbaseurl=https://packagecloud.io/AtomEditor/atom/el/7/\$basearch\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/AtomEditor/atom/gpgkey" > /etc/yum.repos.d/atom.repo'
-        eval "sudo $PACMAN install -yq atom"
-    fi
-elif array_contains apt "${DISTRO}" ; then
-    PACMAN="apt"
-else
-    echo "Unidentified distro, aborting..."
-    exit 1
-fi
-# Install atom packages
-echo '### Installing additional atom packages...'
-atom_packages=$(cat atomlist.csv)
-for atom_package in $atom_packages
-do
-    echo "### Installing $atom_package..."
-    eval "apm install -cs $atom_package > /dev/null"
-    echo "### $atom_package installation done."
-done
-echo "Atom installation done."
-
 # Copy config files
 echo 'Copying over basic config files...'
 cp .bashrc ~/.
