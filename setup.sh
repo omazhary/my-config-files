@@ -101,6 +101,8 @@ cp .dircolors ~/.
 cp .git-prompt.sh ~/.
 cp .tmux.conf ~/.
 cp .tmuxinator.bash ~/.
+cp .emacs ~/.
+cp init-packages.el ~/.emacs.d/.
 cp .vimrc ~/.
 cp .inputrc ~/.
 if [[ -d  "~/bin" ]]; then
