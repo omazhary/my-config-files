@@ -98,6 +98,8 @@ done
 echo 'Copying over basic config files...'
 cp .bashrc ~/.
 cp .dircolors ~/.
+cp .emacs ~/.
+cp init-packages.el ~/.emacs.d/.
 cp .git-prompt.sh ~/.
 cp .tmux.conf ~/.
 cp .tmuxinator.bash ~/.

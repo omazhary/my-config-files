@@ -13,7 +13,7 @@
 
 ; list the packages you want
 (setq package-list
-    '(sml-mode git-gutter jedi))
+    '(sml-mode git-gutter nlinum company markdown-mode))
 
 
 ; activate all the packages
