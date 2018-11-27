@@ -85,17 +85,6 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 set nofoldenable
 " Highlight search results
 set hlsearch
-" Directory tree setup
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
-augroup ProjectDrawer
-    autocmd!
-    autocmd VimEnter * :Vexplore
-augroup END
-au VimEnter * wincmd l
 " Status line colors
 hi StatusLine ctermbg=15 ctermfg=17
 hi StatusLineNC ctermbg=17 ctermfg=15

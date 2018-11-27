@@ -135,12 +135,18 @@ export GOPATH=$HOME/dev/go
 export GOBIN=$HOME/bin
 export PATH=$PATH:$HOME/bin
 export SCALA_HOME=$HOME/Programs/scala
-export SMLROOT=$HOME/Programs/sml
 export PATH=$PATH:$SCALA_HOME/bin
 export PATH=$PATH:$HOME/Programs/spark/bin
 export PATH=$HOME/Programs/gnat/bin:$PATH
 export PATH=$HOME/Programs/ada-spark/bin:$PATH
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.ea.28-8.fc27.x86_64
+export PATH=$PATH:$HOME/Programs/gradle/bin
 export EDITOR='vim'
-export JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-amd64'
 source ~/.tmuxinator.bash
 eval "$(dircolors ~/.dircolors)";
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/tmp/google-cloud-sdk/path.bash.inc' ]; then source '/tmp/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/tmp/google-cloud-sdk/completion.bash.inc' ]; then source '/tmp/google-cloud-sdk/completion.bash.inc'; fi
