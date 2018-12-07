@@ -1,4 +1,6 @@
 curl
+tree
+guake
 vim
 tmux
 ack
