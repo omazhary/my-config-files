@@ -86,29 +86,6 @@ do
     echo "### $gem installation done."
 done
 
-# Install sublime text
-echo 'Installing SublimeText...'
-if [ "${PACMAN}" = "apt" ]; then
-	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-	sudo apt-get install apt-transport-https
-	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-	sudo apt update
-	sudo apt install sublime-text
-elif [ "${PACMAN}" = "yum" ]; then
-	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-	sudo yum-config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-	sudo yum install sublime-text
-elif [ "${PACMAN}" = "dnf" ]; then
-	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-	sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-	sudo dnf install sublime-text
-elif [ "${PACMAN}" = "zypper" ]; then
-	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-	sudo zypper addrepo -g -f https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-	sudo zypper install sublime-text
-fi
-echo 'SublimeText Installed Successfully.'
-
 # Copy config files
 echo 'Copying over basic config files...'
 cp .bashrc ~/.
@@ -120,7 +97,7 @@ cp .vimrc ~/.
 cp .inputrc ~/.
 if [[ -d  "~/bin" ]]; then
     echo '### User bin directory does not exist. Creating...'
-    mkdir -p ~/deb
+    mkdir -p ~/bin
 fi
 cp bin/* ~/bin/.
 
@@ -134,7 +111,7 @@ cp -r texmf ~/.
 
 # Vundle
 echo 'Installing Vundle...'
-if [[ -d "~/.vim/bundle/Vundle.vim" ]]; then
+if [[ ! -d "~/.vim/bundle/Vundle.vim" ]]; then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 else
     echo "Directory exists. Vundle already installed."
