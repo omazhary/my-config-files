@@ -21,7 +21,7 @@ declare -a yum=("CentOS")
 declare -a dnf=("Fedora")
 declare -a apt=("Debian" "Ubuntu" "Lubuntu" "Kubuntu" "Xubuntu")
 echo 'Identifying native package manager...'
-DISTRO=$(cat /etc/os-release | grep '^NAME=' | sed -En 's/NAME=//p')
+DISTRO=$(cat /etc/os-release | grep '^NAME=' | sed -En 's/NAME=//p' | sed -En 's/ GNU\/Linux//p')
 DISTRO="${DISTRO%\"}"
 DISTRO="${DISTRO#\"}"
 PACMAN=''
@@ -39,19 +39,21 @@ echo "You're running ${DISTRO}."
 echo "The corresponding package manager is ${PACMAN}."
 
 # Enable H264 video formats
-echo 'Enabling H.264 video codec'
-if array_contains yum "${DISTRO}" ; then
-    echo "### Not configured."
-    sudo yum install epel-release
-elif array_contains dnf "${DISTRO}" ; then
-    sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    sudo dnf config-manager --set-enabled fedora-cisco-openh264
-    sudo dnf install ffmpeg ffmpeg-devel
-elif array_contains apt "${DISTRO}" ; then
-    echo "### Not configured."
-else
-    echo "Unidentified distro, aborting..."
-    exit 1
+if [ "${DISTRO}" = "Fedora" ]; then
+	echo 'Enabling H.264 video codec'
+	if array_contains yum "${DISTRO}" ; then
+	    echo "### Not configured."
+	    sudo yum install epel-release
+	elif array_contains dnf "${DISTRO}" ; then
+	    sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+	    sudo dnf config-manager --set-enabled fedora-cisco-openh264
+	    sudo dnf install ffmpeg ffmpeg-devel
+	elif array_contains apt "${DISTRO}" ; then
+	    echo "### Not configured."
+	else
+	    echo "Unidentified distro, aborting..."
+	    exit 1
+	fi
 fi
 
 # Install system packages
@@ -65,7 +67,7 @@ do
 done
 
 # Install python packages
-echo 'Installing python packages via pip3...'
+echo 'Installing python packages via pip...'
 pypackages=$(cat pythonlist.csv)
 for pypackage in $pypackages
 do
@@ -74,37 +76,46 @@ do
     echo "### $pypackage installation done."
 done
 
-# Install ruby and rvm packages
-echo "Installing Ruby and RVM..."
-gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB &> /dev/null
-if [ "${DISTRO}" = "Ubuntu" ]; then
-    echo "### Installing RVM for Ubuntu..."
-else
-    echo "### Installing RVM for ${DISTRO}"
-    curl -sSL https://get.rvm.io | bash -s stable --ruby &> /dev/null
-fi
-
 # Install ruby gems
 echo 'Installing ruby gems...'
 gems=$(cat gemlist.csv)
 for gem in $gems
 do
     echo "### Installing $gem..."
-    eval "gem install $gem > /dev/null"
+    eval "sudo gem install $gem > /dev/null"
     echo "### $gem installation done."
 done
+
+# Install sublime text
+echo 'Installing SublimeText...'
+if [ "${PACMAN}" = "apt" ]; then
+	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+	sudo apt-get install apt-transport-https
+	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+	sudo apt update
+	sudo apt install sublime-text
+elif [ "${PACMAN}" = "yum" ]; then
+	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+	sudo yum-config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+	sudo yum install sublime-text
+elif [ "${PACMAN}" = "dnf" ]; then
+	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+	sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+	sudo dnf install sublime-text
+elif [ "${PACMAN}" = "zypper" ]; then
+	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+	sudo zypper addrepo -g -f https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+	sudo zypper install sublime-text
+fi
+echo 'SublimeText Installed Successfully.'
 
 # Copy config files
 echo 'Copying over basic config files...'
 cp .bashrc ~/.
 cp .dircolors ~/.
-cp .emacs ~/.
-cp init-packages.el ~/.emacs.d/.
 cp .git-prompt.sh ~/.
 cp .tmux.conf ~/.
 cp .tmuxinator.bash ~/.
-cp .emacs ~/.
-cp init-packages.el ~/.emacs.d/.
 cp .vimrc ~/.
 cp .inputrc ~/.
 if [[ -d  "~/bin" ]]; then
