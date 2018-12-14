@@ -19,9 +19,9 @@ array_contains() {
 # Identify package manager
 declare -a yum=("CentOS")
 declare -a dnf=("Fedora")
-declare -a apt=("Debian" "Ubuntu" "Lubuntu" "Kubuntu" "Xubuntu")
+declare -a apt=("Debian GNU/Linux" "Ubuntu" "Lubuntu" "Kubuntu" "Xubuntu")
 echo 'Identifying native package manager...'
-DISTRO=$(cat /etc/os-release | grep '^NAME=' | sed -En 's/NAME=//p' | sed -En 's/ GNU\/Linux//p')
+DISTRO=$(cat /etc/os-release | grep '^NAME=' | sed -En 's/NAME=//p')
 DISTRO="${DISTRO%\"}"
 DISTRO="${DISTRO#\"}"
 PACMAN=''
