@@ -62,7 +62,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;220m\]\u@\h:[\W]$(__git_ps1 "(%s)")\n>>\[\e[m\] '
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;26m\]\u@\h:[\W]$(__git_ps1 "(%s)")\n>>\[\e[m\] '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\[\W]> '
 fi
@@ -144,9 +144,3 @@ export PATH=$PATH:$HOME/Programs/gradle/bin
 export EDITOR='vim'
 source ~/.tmuxinator.bash
 eval "$(dircolors ~/.dircolors)";
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/tmp/google-cloud-sdk/path.bash.inc' ]; then source '/tmp/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/tmp/google-cloud-sdk/completion.bash.inc' ]; then source '/tmp/google-cloud-sdk/completion.bash.inc'; fi
