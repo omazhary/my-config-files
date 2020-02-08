@@ -95,6 +95,8 @@ cp .tmux.conf ~/.
 cp .tmuxinator.bash ~/.
 cp .vimrc ~/.
 cp .inputrc ~/.
+
+# Create directory and copy over custom scripts
 mkdir -p ~/bin
 cp bin/* ~/bin/.
 
