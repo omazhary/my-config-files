@@ -1,0 +1,42 @@
+#!/bin/bash -e
+
+# Start SSH agent
+echo "Starting SSH agent..."
+eval `ssh-agent -s`
+ssh-add
+echo "SSH agent ${SSH_AGENT_PID} started successfully."
+
+# Confirm repo list
+REPOLIST=$1
+echo "Your repository list lives in ${REPOLIST}."
+
+# Confirm grade file
+GRADEFILE=$2
+echo "The grades reside in ${GRADEFILE} in every submission repo."
+
+# Loop over repo list to add grades file, rebase over any changes, and push
+while read repo; do
+    repo_directory=$(echo $repo | cut -d '/' -f 2)
+    echo "Processing ${repo_directory}..."
+    pushd ${repo_directory}
+    echo "> Committing grades..."
+    git add ${GRADEFILE}
+    git commit -q -m 'Update grades'
+    echo "> Grades committed successfully."
+    echo "> Fetching ${repo}..."
+    git fetch -q --all
+    echo "> Fetch successful."
+    echo "> Rebasing changes..."
+    git rebase -q origin/master
+    echo "> Rebase successful."
+    echo "> Pushing ${repo_directory}..."
+    git push -q origin HEAD:master
+    echo "> ${repo_directory} pushed successfully."
+    popd
+done < $REPOLIST
+echo "All repositories updated successfully."
+
+# Cleanup the SSH agent
+echo "Killing SSH agent ${SSH_AGENT_PID}..."
+kill -9 $SSH_AGENT_PID
+echo "Agent killed successfully."

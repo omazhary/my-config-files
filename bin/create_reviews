@@ -1,0 +1,32 @@
+#!/bin/bash -e
+
+
+# Confirm repo list
+REPOLIST=$1
+echo "Your repository list lives in ${REPOLIST}."
+
+# Confirm grade file
+GRADEFILE=$2
+echo "The grades reside in ${GRADEFILE} in every submission repo."
+
+# Create reviews directory
+current_date=$(date +'%Y%m%d')
+review_directory=reviews-$current_date
+mkdir -p $review_directory
+echo "Created review directory: ${review_directory}"
+
+# Loop over repo list and copy grades files
+echo "Copying reviews from submission repos"
+while read repo; do
+    directory=$(echo $repo | cut -d '/' -f 2)
+    echo "Processing ${directory}..."
+    cp ${directory}/${GRADEFILE} ${review_directory}/${directory}_grades.md
+    echo "Copied ${directory}/${GRADEFILE} to ${review_directory}/${directory}_grades.md"
+done < $REPOLIST
+echo "All reviews copied successfully."
+
+# Create review tarball
+echo "Compressing reviews..."
+tar -czf ${review_directory}.tar.gz ${review_directory}
+rm -rf ${review_directory}
+echo "Review compression successful."
