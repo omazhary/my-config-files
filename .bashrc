@@ -139,6 +139,7 @@ export PATH=$PATH:$SCALA_HOME/bin
 export PATH=$PATH:$HOME/Programs/spark/bin
 export PATH=$HOME/Programs/gnat/bin:$PATH
 export PATH=$HOME/Programs/ada-spark/bin:$PATH
+export PATH=/home/omazhary/.local/bin:$PATH
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.ea.28-8.fc27.x86_64
 export PATH=$PATH:$HOME/Programs/gradle/bin
 export EDITOR='vim'
