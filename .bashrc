@@ -129,6 +129,8 @@ fi
 
 # Custom aliases
 alias ll='ls -alh'
+alias python='python3'
+alias pip='pip3'
 
 # Custom exports
 export GOPATH=$HOME/dev/go
