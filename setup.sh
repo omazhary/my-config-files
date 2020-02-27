@@ -38,23 +38,15 @@ fi
 echo "You're running ${DISTRO}."
 echo "The corresponding package manager is ${PACMAN}."
 
-# Enable H264 video formats
-if [ "${DISTRO}" = "Fedora" ]; then
-	echo 'Enabling H.264 video codec'
-	if array_contains yum "${DISTRO}" ; then
-	    echo "### Not configured."
-	    sudo yum install epel-release
-	elif array_contains dnf "${DISTRO}" ; then
-	    sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-	    sudo dnf config-manager --set-enabled fedora-cisco-openh264
-	    sudo dnf install ffmpeg ffmpeg-devel
-	elif array_contains apt "${DISTRO}" ; then
-	    echo "### Not configured."
-	else
-	    echo "Unidentified distro, aborting..."
-	    exit 1
-	fi
-fi
+# Copy config files
+echo 'Copying over basic config files...'
+cp .bashrc ~/.
+cp .dircolors ~/.
+cp .git-prompt.sh ~/.
+cp .tmux.conf ~/.
+cp .tmuxinator.bash ~/.
+cp .vimrc ~/.
+cp .inputrc ~/.
 
 # Install system packages
 echo 'Installing additional system packages...'
@@ -65,6 +57,11 @@ do
     eval "sudo $PACMAN install -yq $package"
     echo "### $package installation done."
 done
+
+# Install nvm
+echo 'Installing nvm...'
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+echo 'nvm installation complete'
 
 # Install python packages
 echo 'Installing python packages via pip...'
@@ -85,16 +82,6 @@ do
     eval "sudo gem install $gem > /dev/null"
     echo "### $gem installation done."
 done
-
-# Copy config files
-echo 'Copying over basic config files...'
-cp .bashrc ~/.
-cp .dircolors ~/.
-cp .git-prompt.sh ~/.
-cp .tmux.conf ~/.
-cp .tmuxinator.bash ~/.
-cp .vimrc ~/.
-cp .inputrc ~/.
 
 # Create directory and copy over custom scripts
 mkdir -p ~/bin
