@@ -1,0 +1,26 @@
+#!/bin/bash -e
+
+# Start SSH agent
+echo "Starting SSH agent..."
+eval `ssh-agent -s`
+ssh-add
+echo "SSH agent ${SSH_AGENT_PID} started successfully."
+
+# Confirm repo list
+REPOLIST=$1
+echo "Your repository list lives in ${REPOLIST}."
+
+# Loop over repo list to pull any new updates
+while read repo; do
+    repo_directory=$(echo $repo | cut -d '/' -f 2)
+    echo "Processing ${repo_directory}..."
+    pushd ${repo_directory}
+    git pull --quiet
+    popd
+done < $REPOLIST
+echo "All repositories updated successfully."
+
+# Cleanup the SSH agent
+echo "Killing SSH agent ${SSH_AGENT_PID}..."
+kill -9 $SSH_AGENT_PID
+echo "Agent killed successfully."
