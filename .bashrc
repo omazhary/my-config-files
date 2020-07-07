@@ -62,7 +62,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;26m\]\u@\h:[\W]$(__git_ps1 "(%s)")\n>>\[\e[m\] '
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;220m\]\u@\h:[\W]$(__git_ps1 "(%s)")\n>>\[\e[m\] '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\[\W]> '
 fi
@@ -142,8 +142,16 @@ export PATH=$PATH:$HOME/Programs/spark/bin
 export PATH=$HOME/Programs/gnat/bin:$PATH
 export PATH=$HOME/Programs/ada-spark/bin:$PATH
 export PATH=/home/omazhary/.local/bin:$PATH
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.ea.28-8.fc27.x86_64
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export PATH=$PATH:$HOME/Programs/gradle/bin
 export EDITOR='vim'
 source ~/.tmuxinator.bash
 eval "$(dircolors ~/.dircolors)";
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/omazhary/.sdkman"
+[[ -s "/home/omazhary/.sdkman/bin/sdkman-init.sh" ]] && source "/home/omazhary/.sdkman/bin/sdkman-init.sh"
