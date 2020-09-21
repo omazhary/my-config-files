@@ -1,7 +1,6 @@
 curl
 wget
 tree
-guake
 vim
 tmux
 ack
