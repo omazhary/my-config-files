@@ -62,7 +62,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;26m\]\u@\h:[\W]$(__git_ps1 "(%s)")\n>>\[\e[m\] '
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;226m\]\u@\h:[\W]$(__git_ps1 "(%s)")\n>>\[\e[m\] '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\[\W]> '
 fi
@@ -136,6 +136,7 @@ alias pip='pip3'
 export GOPATH=$HOME/dev/go
 export GOBIN=$HOME/bin
 export PATH=$PATH:$HOME/bin
+export PATH=$PATH:/snap/bin
 export SCALA_HOME=$HOME/Programs/scala
 export PATH=$PATH:$SCALA_HOME/bin
 export PATH=$PATH:$HOME/Programs/spark/bin
