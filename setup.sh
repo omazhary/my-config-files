@@ -57,11 +57,17 @@ do
     eval "sudo $PACMAN install -yq $package"
     echo "### $package installation done."
 done
+echo 'Package installation complete.'
+
+# Install oh-my-zsh!
+echo 'Installing oh-my-zsh...'
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo 'oh-my-zsh installation complete.'
 
 # Install nvm
 echo 'Installing nvm...'
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-echo 'nvm installation complete'
+echo 'nvm installation complete.'
 
 # Install python packages
 echo 'Installing python packages via pip...'
@@ -69,7 +75,7 @@ pypackages=$(cat pythonlist.csv)
 for pypackage in $pypackages
 do
     echo "### Installing $pypackage..."
-    eval "pip3 install --user $pypackage > /dev/null"
+    eval "pip3 install --default-timeout=100 --user $pypackage > /dev/null"
     echo "### $pypackage installation done."
 done
 
@@ -102,5 +108,7 @@ if ! test -d ~/.vim/bundle/Vundle.vim; then
 else
     echo "Directory exists. Vundle already installed."
 fi
+
+source ~/.bashrc
 
 echo 'Setup successful!'
