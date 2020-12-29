@@ -47,6 +47,7 @@ cp .tmux.conf ~/.
 cp .tmuxinator.bash ~/.
 cp .vimrc ~/.
 cp .inputrc ~/.
+cp .zshrc ~/.
 
 # Install system packages
 echo 'Installing additional system packages...'
@@ -60,9 +61,14 @@ done
 echo 'Package installation complete.'
 
 # Install oh-my-zsh!
-echo 'Installing oh-my-zsh...'
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-echo 'oh-my-zsh installation complete.'
+if [ ! -d ~/.oh-my-zsh ]; then
+    echo 'Installing oh-my-zsh...'
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    cp omazhary.zsh-theme ~/.oh-my-zsh/themes/.
+    echo 'oh-my-zsh installation complete.'
+else
+    echo 'oh-my-zsh already installed. Skipping...'
+fi
 
 # Install nvm
 echo 'Installing nvm...'
