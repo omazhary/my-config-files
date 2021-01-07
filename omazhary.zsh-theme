@@ -28,8 +28,12 @@ username() {
 directory() {
     ARROW_FG="235"
     ARROW_BG="221"
-    NEXT_ARROW_BG="235"
+    NEXT_ARROW_BG="248"
     NEXT_ARROW_FG="221"
+    GIT_LENGTH=`expr length "$(git_prompt_info)"`
+    if [ $GIT_LENGTH -eq 0 ]; then
+        NEXT_ARROW_BG="235"
+    fi
     echo "$(arrow_start) %1~ $(arrow_end)"
 }
 
@@ -50,11 +54,13 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[white]%}*%{$reset_color%}"
 git_status() {
    ARROW_FG="235"
    ARROW_BG="248"
-   NEXT_ARROW_BG="248"
+   NEXT_ARROW_BG="235"
    NEXT_ARROW_FG="248"
-   echo "$(arrow_start)$(right_triangle) $(git_prompt_info)$(arrow_end)"
+   GIT_LENGTH=`expr length "$(git_prompt_info)"`
+    if [ ! $GIT_LENGTH -eq 0 ]; then
+        echo "$(arrow_start) $(git_prompt_info) $(arrow_end)"
+    fi
 }
 
-PROMPT='%B$(username)$(directory)%b $(git_prompt_info)
-$(prompt_indicator) '
+PROMPT='%B$(username)$(directory)$(git_status)%b '
 RPROMPT=''
