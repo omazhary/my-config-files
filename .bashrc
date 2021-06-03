@@ -61,16 +61,17 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-BLUE="\e[1;34m"
-CLEAR_FORMAT="\e[0m"
+BLUE="\[\e[38;5;26m\]"
+BOLD="\[\033[1m\]"
+CLEAR_FORMAT="\[\e[0m\]"
 
 if [ "$color_prompt" = yes ]; then
-    PS1="\[$BLUE\]\u@\h:[\W]"
+    PS1="$BOLD"
+    PS1+="$BLUE\u@\h:[\W]"
     PS1+='$(__git_ps1 "(%s)")'
-    PS1+="\n>> \[$CLEAR_FORMAT\]"
+    PS1+="\n>> $CLEAR_FORMAT"
 else
-    #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\[\W]> '
-    PS1='\[\u@\h:\]'
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\[\W]> '
 fi
 PS2="\[$BLUE\]>> \[$CLEAR_FORMAT\]"
 unset color_prompt force_color_prompt
