@@ -61,13 +61,13 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-BLUE="\[\e[38;5;26m\]"
+COLOR="\[\e[38;5;220m\]"
 BOLD="\[\033[1m\]"
 CLEAR_FORMAT="\[\e[0m\]"
 
 if [ "$color_prompt" = yes ]; then
     PS1="$BOLD"
-    PS1+="$BLUE\u@\h:[\W]"
+    PS1+="$COLOR\u@\h:[\W]"
     PS1+='$(__git_ps1 "(%s)")'
     PS1+="\n>> $CLEAR_FORMAT"
 else
